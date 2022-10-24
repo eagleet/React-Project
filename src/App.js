@@ -6,7 +6,7 @@ import Notifications from './pages/Notifications';
 import ProductDetail from './pages/ProductDetail';
 import SideBar from './componentes/SideBar';
 import MainHeader from './componentes/MainHeader';
-import Supplier from './pages/Supplier';
+import Supplier from './pages/SupplierDetail';
 
 function App() {
   return (

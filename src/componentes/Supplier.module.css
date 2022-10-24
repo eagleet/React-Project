@@ -1,0 +1,16 @@
+.supplier {
+    margin: 1rem;
+    padding: 1rem;
+    background-color: #c7c2ce;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    border-radius: 12px;
+    text-align: center;
+    color: white;
+  }
+  
+  .supplier li {
+    list-style: none;
+    color: #000000;
+    margin: 0;
+    font-size: 1rem;
+  }
