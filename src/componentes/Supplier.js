@@ -16,6 +16,7 @@ const Supplier = (props) => {
             <label htmlFor="telefone">Telefone: </label>
             <input id="telefone" type="text" name="telefone" defaultValue={props.Telefone}/>
             <input type="submit" value="OK"/>
+            <input type="submit" value="OK"/>
         </form>
       /* <ul className={classes.supplier}>
         <li>{props.Nome}</li>
