@@ -1,12 +1,14 @@
-import Supplier from "./Supplier";
-import classes from './SupplierList.module.css'
+import Supplier from "../pages/Supplier";
 
 const SuppliersList = (props) => {
-    return (
-      <div className={classes['suppliers-list']}>
+  return (
+    <>
         {props.suppliers.map((supplier) => (
           <Supplier
-            key={supplier.Id}
+            // supplierKey={key}
+            // supplier={supplier}
+            key = {supplier.Id}
+            Id = {supplier.Id}
             Nome={supplier.Nome}
             Nif={supplier.Nif}
             Morada={supplier.Morada}
@@ -14,8 +16,8 @@ const SuppliersList = (props) => {
             Telefone= {supplier.Telefone}
           />
         ))}
-      </div>
-    );
-}
+    </>
+  );
+};
 
 export default SuppliersList;
