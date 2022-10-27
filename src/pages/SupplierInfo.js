@@ -1,6 +1,7 @@
 import { useRef, useState, useCallback, useEffect } from "react";
 import classes from "./SupplierInfo.module.css";
 import { useHistory } from "react-router-dom";
+import { MdKeyboardArrowLeft } from "react-icons/md";
 
 const SupplierInfo = ({ match }, props) => {
   const nameRef = useRef("");
@@ -13,8 +14,14 @@ const SupplierInfo = ({ match }, props) => {
   const [supplier, setSupplier] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  
+
+  const onClickHandler = () => {
+    history.push(`/supplier/`);
+  };
 
   const fetchSupplier = useCallback(async () => {
+    if (supplierId === 'new') return;
     setIsLoading(true);
     setError(null);
     try {
@@ -86,7 +93,7 @@ const SupplierInfo = ({ match }, props) => {
       </form>
     );
   }
-
+  if (supplierId === 'new') return;
   if (error) {
     content = <p>{error}</p>;
   }
@@ -124,7 +131,14 @@ const SupplierInfo = ({ match }, props) => {
     console.log(data);
   };
   // console.log(match.params.id, supplier.nome, nifRef.current.value);
-  return content;
+  return (
+    <div>
+      <button className={classes["arrow-btn"]} onClick={onClickHandler}>
+        <MdKeyboardArrowLeft />
+      </button>
+      {content}
+    </div>
+  );
 };
 
 export default SupplierInfo;

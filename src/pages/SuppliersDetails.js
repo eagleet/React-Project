@@ -1,11 +1,17 @@
 import React, { useEffect, useState, useCallback } from "react";
 import classes from "./SuppliersDetails.module.css";
 import SuppliersList from "../componentes/SuppliersList";
+import { useHistory } from "react-router-dom";
 
 const SuppliersDetails = () => {
   const [suppliers, setSuppliers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const history = useHistory();
+
+  const onClickHandler = () => {
+    history.push(`/supplier/new/`);
+  };
 
   const fetchSuppliers = useCallback(async () => {
     setIsLoading(true);
@@ -57,7 +63,10 @@ const SuppliersDetails = () => {
   return (
     <div className="container">
       <div className={classes.table}>
-      <h2>Fornecedores</h2>
+      <div className={classes['btn-wrapper']}>
+        <button className={classes.btn} onClick={onClickHandler}>Adicionar Fornecedor novo</button>
+      </div>
+      <h1>Fornecedores</h1>
         <div className={classes.row}>
           <div className={classes.cell}>Id</div>
           <div className={classes.cell}>Nome</div>
