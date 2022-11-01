@@ -41,3 +41,10 @@ h1{
     width: 100%;
 }
 .btn:hover {background-color: var(--color-secundary)}
+
+.search_container {
+    align-items: center;
+    display:table-row;
+    font-size: 20px;
+    font-weight: bold;
+}

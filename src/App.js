@@ -25,8 +25,8 @@ function App() {
             <Route path="/welcome" component={Welcome}></Route>
             <Route path="/products" exact component={Products}></Route>
             <Route path="/supplier" exact component={Supplier}></Route>
+            <Route path="/supplier/create" component={AddSupplier}></Route>
             <Route path="/supplier/:id" component={SupplierInfo}></Route>
-            <Route path="/supplier/new" component={AddSupplier}></Route>
             <Route path="/notifications" component={Notifications}></Route>
             <Route path="/products/:productId" component={ProductDetail}></Route>
           </Switch>

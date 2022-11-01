@@ -123,7 +123,7 @@ const SupplierInfo = ({ match }, props) => {
     const response = await fetch(`/api/suppliers/${supplierId}/update/`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(supplier),
     });

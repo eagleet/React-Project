@@ -7,12 +7,16 @@ const SuppliersDetails = () => {
   const [suppliers, setSuppliers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [searchInput, setSearchInput] = useState("");
+  const [filteredResults, setFilteredResults] = useState([]);
   const history = useHistory();
 
+  // ---------------------------------Function to add new supplier---------------------------------
   const onClickHandler = () => {
-    history.push(`/supplier/new/`);
+    history.push(`/supplier/create/`);
   };
 
+  // ---------------------------------Function to fetch all suppliers--------------------------------
   const fetchSuppliers = useCallback(async () => {
     setIsLoading(true);
     setError(null);
@@ -41,32 +45,70 @@ const SuppliersDetails = () => {
     setIsLoading(false);
   }, []);
 
+  // -------------------When function fetchSuppliers changes, the useEffect triggers, so the function fetchSuppliers runs again---------------------------------
+
   useEffect(() => {
     fetchSuppliers();
   }, [fetchSuppliers]);
 
+ 
+  // ---------------------------------Function to handle filter Search---------------------------------
 
-  let content = <p>Não encontramos Fornecedores.</p>;
+  const searchItems = (event) => {
+    setSearchInput(event.target.value);
+    console.log(event.target.value)
+    if (event.target.value !== '') {
+      const filteredData = suppliers.filter((item) => {
+        return Object.values(item)
+          .join("")
+          .toLowerCase()
+          .includes(event.target.value.toLowerCase());
+      });
+      setFilteredResults(filteredData);
+    }
+  };
 
-  if (suppliers.length > 0) {
-    content = <SuppliersList suppliers={suppliers} />;
-  }
+   //--------------------------------- Verification if the data fetched is true---------------------------------
 
-  if (error) {
-    content = <p>{error}</p>;
-  }
+   let content = <p>Não encontramos Fornecedores.</p>;
 
-  if (isLoading) {
-    content = <p>Loading...</p>;
-  }
+   if (searchInput.length <= 1) {
+     content = <SuppliersList suppliers={suppliers} />;
+   } else {
+     content = <SuppliersList filteredResults={filteredResults} />;
+   }
+   if (error) {
+     content = <p>{error}</p>;
+   }
+   if (isLoading) {
+     content = <p>Loading...</p>;
+   }
+ 
+
+  //---------------------------------Function SuppliersDetails---------------------------------
 
   return (
     <div className="container">
       <div className={classes.table}>
-      <div className={classes['btn-wrapper']}>
-        <button className={classes.btn} onClick={onClickHandler}>Adicionar Fornecedor novo</button>
-      </div>
-      <h1>Fornecedores</h1>
+        <div className={classes["btn-wrapper"]}>
+          <button className={classes.btn} onClick={onClickHandler}>
+            Adicionar Fornecedor novo
+          </button>
+        </div>
+        <div className={classes.search_container}>
+          <div className={classes.cell}>
+            <p>Filtros:</p>
+          </div>
+          <div className={classes.cell}>
+            <input
+              type="text"
+              placeholder="Search..."
+              className="search"
+              onChange={searchItems}
+            />
+          </div>
+        </div>
+        <h1>Fornecedores</h1>
         <div className={classes.row}>
           <div className={classes.cell}>Id</div>
           <div className={classes.cell}>Nome</div>
@@ -74,8 +116,8 @@ const SuppliersDetails = () => {
           <div className={classes.cell}>Morada</div>
           <div className={classes.cell}>Email</div>
           <div className={classes.cell}>Telefone</div>
-        </div>   
-          {content}
+        </div>
+        {content}
       </div>
     </div>
   );
