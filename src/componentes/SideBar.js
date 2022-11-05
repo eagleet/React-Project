@@ -1,11 +1,11 @@
-import { NavLink } from "react-router-dom";
-import classes from "./SideBar.module.css";
-import { useState } from "react";
-import { AiFillHome } from "react-icons/ai";
-import { SiGooglesheets } from "react-icons/si";
-import { FaHandshake } from "react-icons/fa";
-import { RiFeedbackFill } from "react-icons/ri";
-import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+import { NavLink } from 'react-router-dom';
+import classes from './SideBar.module.css';
+import { useState } from 'react';
+import { AiFillHome } from 'react-icons/ai';
+import { SiGooglesheets } from 'react-icons/si';
+import { FaHandshake } from 'react-icons/fa';
+import { RiFeedbackFill } from 'react-icons/ri';
+import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
 
 const SideBar = () => {
   const [isClicked, setIsClicked] = useState(false);
@@ -13,10 +13,10 @@ const SideBar = () => {
   const handleMouseClick = () => {
     if (isClicked) {
       setIsClicked(false);
-      // console.log(isClicked);
+      console.log(isClicked);
     } else {
       setIsClicked(true);
-      // console.log(isClicked);
+      console.log(isClicked);
     }
   };
 
@@ -48,26 +48,38 @@ const SideBar = () => {
       </div>
       {!isClicked && (
         <div className={classes.menu}>
-          <div onClick={handleMouseClick} className={classes.link}>
+          <NavLink
+            onClick={handleMouseClick}
+            to="/"
+            className={classes.link}
+            activeClassName={classes.active}
+            exact
+          >
             <div className={classes.icon}>
               <FaHandshake />
             </div>
             <div className={classes.link_text}>
-              General <IoIosArrowDown style={{ height: "1em" }} />
+              General <IoIosArrowDown style={{ height: '1em' }} />
             </div>
-          </div>
+          </NavLink>
         </div>
       )}
       {isClicked && (
         <div className={classes.menu}>
-          <div onClick={handleMouseClick} className={classes.link}>
+          <NavLink
+            onClick={handleMouseClick}
+            to="/"
+            className={classes.link}
+            activeClassName={classes.active}
+            exact
+          >
             <div className={classes.icon}>
               <FaHandshake />
             </div>
             <div className={classes.link_text}>
-              General <IoIosArrowUp style={{ height: "1em" }} />
+              General <IoIosArrowUp style={{ height: '1em' }} />
             </div>
-          </div>
+          </NavLink>
           <div className={classes.Menu}>
             <div className={classes.sub_menu}>
               <NavLink
