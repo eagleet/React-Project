@@ -1,0 +1,22 @@
+  .row{
+    display:table-row;
+    border-top: 1px solid black;
+  }
+  .cell {display:table-cell;
+    width:340px;}
+  
+  .btn{
+      padding-top: 12px;
+      padding-bottom: 12px;
+      padding-left: 25px;
+      padding-right: 25px;
+      background-color: var(--color-primary);
+      border: 1px solid transparent;
+      font-size: 16px;
+      line-height: 21px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+  }
+  .btn:hover {background-color: var(--color-secundary)}
+ 

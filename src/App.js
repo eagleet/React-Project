@@ -1,12 +1,15 @@
-import { Route, Switch } from 'react-router-dom';
-import Welcome from './pages/Welcome';
-import Products from './pages/Products';
-//import User from './pages/Supplier';
-import Notifications from './pages/Notifications';
-import ProductDetail from './pages/ProductDetail';
-import SideBar from './componentes/SideBar';
-import MainHeader from './componentes/MainHeader';
-import Supplier from './pages/SupplierDetail';
+import { Route, Switch } from "react-router-dom";
+import Welcome from "./pages/Welcome";
+import Products from "./pages/Products";
+import Notifications from "./pages/Notifications";
+import ProductDetail from "./pages/ProductDetail";
+import SideBar from "./componentes/SideBar";
+import MainHeader from "./componentes/MainHeader";
+import Supplier from "./pages/SuppliersDetails";
+import SupplierInfo from "./pages/SupplierInfo";
+import Home from "./pages/Home";
+import AddSupplier from "./pages/AddSupplier";
+
 
 function App() {
   return (
@@ -18,21 +21,14 @@ function App() {
         <SideBar />
         <main>
           <Switch>
-            <Route path="/welcome">
-              <Welcome />
-            </Route>
-            <Route path="/products" exact>
-              <Products />
-            </Route>
-            <Route path="/supplier">
-              <Supplier />
-            </Route>
-            <Route path="/notifications">
-              <Notifications />
-            </Route>
-            <Route path="/products/:productId">
-              <ProductDetail />
-            </Route>
+            <Route path="/" exact component={Home}></Route>
+            <Route path="/welcome" component={Welcome}></Route>
+            <Route path="/products" exact component={Products}></Route>
+            <Route path="/supplier" exact component={Supplier}></Route>
+            <Route path="/supplier/create" component={AddSupplier}></Route>
+            <Route path="/supplier/:id" component={SupplierInfo}></Route>
+            <Route path="/notifications" component={Notifications}></Route>
+            <Route path="/products/:productId" component={ProductDetail}></Route>
           </Switch>
         </main>
       </div>
