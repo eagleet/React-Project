@@ -1,14 +1,12 @@
 import React, { useEffect, useState, useCallback } from "react";
 import classes from "./SuppliersDetails.module.css";
-import SuppliersList from "../componentes/SuppliersList";
 import { useHistory } from "react-router-dom";
+import DataTable from "../componentes/DataTableBase";
+import "react-data-table-component-extensions/dist/index.css";
+
 
 const SuppliersDetails = () => {
   const [suppliers, setSuppliers] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [searchInput, setSearchInput] = useState("");
-  const [filteredResults, setFilteredResults] = useState([]);
   const history = useHistory();
 
   // ---------------------------------Function to add new supplier---------------------------------
@@ -18,9 +16,8 @@ const SuppliersDetails = () => {
 
   // ---------------------------------Function to fetch all suppliers--------------------------------
   const fetchSuppliers = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
+
+
       const response = await fetch("/api/suppliers/");
       if (!response.ok) {
         throw new Error("Something went wrong!");
@@ -28,21 +25,19 @@ const SuppliersDetails = () => {
       const data = await response.json();
       // console.log("DATA:", data);
       // setSuppliers(data);
-      const transformedSuppliers = data.map((supplierData) => {
-        return {
-          Id: supplierData.id,
-          Nome: supplierData.nome,
-          Nif: supplierData.nif,
-          Morada: supplierData.morada,
-          Email: supplierData.email,
-          Telefone: supplierData.telefone,
-        };
-      });
-      setSuppliers(transformedSuppliers);
-    } catch (error) {
-      setError(error.message);
-    }
-    setIsLoading(false);
+      // const transformedSuppliers = data.map((supplierData) => {
+      //   return {
+      //     Id: supplierData.id,
+      //     Nome: supplierData.nome,
+      //     Nif: supplierData.nif,
+      //     Morada: supplierData.morada,
+      //     Email: supplierData.email,
+      //     Telefone: supplierData.telefone,
+      //   };
+      // });
+      // setSuppliers(transformedSuppliers);
+       setSuppliers(data);
+
   }, []);
 
   // -------------------When function fetchSuppliers changes, the useEffect triggers, so the function fetchSuppliers runs again---------------------------------
@@ -51,74 +46,74 @@ const SuppliersDetails = () => {
     fetchSuppliers();
   }, [fetchSuppliers]);
 
- 
-  // ---------------------------------Function to handle filter Search---------------------------------
 
-  const searchItems = (event) => {
-    setSearchInput(event.target.value);
-    console.log(event.target.value)
-    if (event.target.value !== '') {
-      const filteredData = suppliers.filter((item) => {
-        return Object.values(item)
-          .join("")
-          .toLowerCase()
-          .includes(event.target.value.toLowerCase());
-      });
-      setFilteredResults(filteredData);
-    }
+  const subHeaderComponent = (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <p>Procurar</p>
+      <input id="outlined-basic" label="Search" placeholder="Search..." variant="outlined" size="small" style={{ margin: '5px' }} />
+      {/* <Icon1 style={{ margin: '5px' }} color="action" />
+      <Icon2 style={{ margin: '5px' }} color="action" />
+      <Icon3 style={{ margin: '5px' }} color="action" /> */}
+    </div>
+  );
+
+  const columns = [
+    {
+      name: 'Id',
+      selector: (row) => row.id,
+      sortable: true,
+    },
+    {
+      name: 'Nome',
+      selector: row => row.nome,
+      sortable: true,
+    },
+    {
+      name: 'Nif',
+      selector: row => row.nif,
+      sortable: true
+    },
+    {
+      name: 'Morada',
+      selector: row => row.morada,
+      sortable: true,
+    },
+    {
+      name: 'Email',
+      selector: row => row.email,
+      sortable: true,
+    },
+    {
+      name: 'Telefone',
+      selector: row => row.telefone,
+      sortable: true,
+    },
+  ]
+
+  const onClickSelect = (selectedRows) => {
+    // console.log(selectedRows)
+    history.push(`/supplier/${selectedRows.selectedRows[0].id}/update/`);
   };
 
-   //--------------------------------- Verification if the data fetched is true---------------------------------
 
-   let content = <p>Não encontramos Fornecedores.</p>;
-
-   if (searchInput.length <= 1) {
-     content = <SuppliersList suppliers={suppliers} />;
-   } else {
-     content = <SuppliersList filteredResults={filteredResults} />;
-   }
-   if (error) {
-     content = <p>{error}</p>;
-   }
-   if (isLoading) {
-     content = <p>Loading...</p>;
-   }
- 
+  // const ExpandedComponent = ({ data }) => <pre onClick={(event) => onClickExpand(event)}></pre>;
+  
 
   //---------------------------------Function SuppliersDetails---------------------------------
 
   return (
-    <div className="container">
-      <div className={classes.table}>
-        <div className={classes["btn-wrapper"]}>
+    <div className={classes.container}>     
           <button className={classes.btn} onClick={onClickHandler}>
             Adicionar Fornecedor novo
           </button>
-        </div>
-        <div className={classes.search_container}>
-          <div className={classes.cell}>
-            <p>Filtros:</p>
-          </div>
-          <div className={classes.cell}>
-            <input
-              type="text"
-              placeholder="Search..."
-              className="search"
-              onChange={searchItems}
-            />
-          </div>
-        </div>
-        <h1>Fornecedores</h1>
-        <div className={classes.row}>
-          <div className={classes.cell}>Id</div>
-          <div className={classes.cell}>Nome</div>
-          <div className={classes.cell}>Nif</div>
-          <div className={classes.cell}>Morada</div>
-          <div className={classes.cell}>Email</div>
-          <div className={classes.cell}>Telefone</div>
-        </div>
-        {content}
-      </div>
+        <DataTable
+          title='Fornecedores'
+          columns={columns}
+          data={suppliers}
+          subHeaderComponent={subHeaderComponent}
+          onSelectedRowsChange={onClickSelect}
+          theme='solarized'
+        />
     </div>
   );
 };
