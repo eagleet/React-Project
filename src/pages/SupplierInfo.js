@@ -2,6 +2,7 @@ import { useRef, useState, useCallback, useEffect } from "react";
 import classes from "./SupplierInfo.module.css";
 import { useHistory } from "react-router-dom";
 import { MdKeyboardArrowLeft } from "react-icons/md";
+import AuthContext from "../store/auth-context";
 
 const SupplierInfo = ({ match }, props) => {
   const nameRef = useRef("");
@@ -25,7 +26,10 @@ const SupplierInfo = ({ match }, props) => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(`/api/suppliers/${supplierId}/`);
+      const response = await fetch(`/api/suppliers/${supplierId}/`, {
+        method:'GET',
+        headers: {'Authorization': `Bearer ${AuthContext.token}`}
+      });
       if (!response.ok) {
         throw new Error("Something went wrong!");
       }
@@ -123,7 +127,8 @@ const SupplierInfo = ({ match }, props) => {
     const response = await fetch(`/api/suppliers/${supplierId}/update/`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${AuthContext.token}`
       },
       body: JSON.stringify(supplier),
     });

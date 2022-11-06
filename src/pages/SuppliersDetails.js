@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useContext } from "react";
 import classes from "./SuppliersDetails.module.css";
 import SuppliersList from "../componentes/SuppliersList";
 import { useHistory } from "react-router-dom";
+import AuthContext from "../store/auth-context";
 
 const SuppliersDetails = () => {
   const [suppliers, setSuppliers] = useState([]);
@@ -9,6 +10,8 @@ const SuppliersDetails = () => {
   const [error, setError] = useState(null);
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
+
+  const authCtx = useContext(AuthContext);
   const history = useHistory();
 
   // ---------------------------------Function to add new supplier---------------------------------
@@ -21,7 +24,10 @@ const SuppliersDetails = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch("/api/suppliers/");
+      const response = await fetch("/api/suppliers/", {
+        method:'GET',
+        headers: {'Authorization': `Bearer ${authCtx.token}`}
+      });
       if (!response.ok) {
         throw new Error("Something went wrong!");
       }
@@ -43,7 +49,7 @@ const SuppliersDetails = () => {
       setError(error.message);
     }
     setIsLoading(false);
-  }, []);
+  }, [authCtx.token]);
 
   // -------------------When function fetchSuppliers changes, the useEffect triggers, so the function fetchSuppliers runs again---------------------------------
 
