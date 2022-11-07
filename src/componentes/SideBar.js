@@ -13,14 +13,25 @@ import AuthContext from "../store/auth-context";
 
 const SideBar = () => {
   const authCtx = useContext(AuthContext);
-  const [isClicked, setIsClicked] = useState(false);
+  const [isClickedGeneral, setIsClickedGeneral] = useState(false);
+  const [isClickedRegister, setIsClickedRegister] = useState(false);
 
-  const handleMouseClick = () => {
-    if (isClicked) {
-      setIsClicked(false);
+  const handleMouseClickGeneral = () => {
+    if (isClickedGeneral) {
+      setIsClickedGeneral(false);
       // console.log(isClicked);
     } else {
-      setIsClicked(true);
+      setIsClickedGeneral(true);
+      // console.log(isClicked);
+    }
+  };
+
+  const handleMouseClickRegister = () => {
+    if (isClickedRegister) {
+      setIsClickedRegister(false);
+      // console.log(isClicked);
+    } else {
+      setIsClickedRegister(true);
       // console.log(isClicked);
     }
   };
@@ -52,9 +63,9 @@ const SideBar = () => {
         <div className={classes.link_text}>Fichas Técnicas</div>
       </NavLink>
     </div>
-    {!isClicked && (
+    {!isClickedGeneral && (
       <div className={classes.menu}>
-        <div onClick={handleMouseClick} className={classes.link}>
+        <div onClick={handleMouseClickGeneral} className={classes.link}>
           <div className={classes.icon}>
             <FaHandshake />
           </div>
@@ -64,9 +75,9 @@ const SideBar = () => {
         </div>
       </div>
     )}
-    {isClicked && (
+    {isClickedGeneral && (
       <div className={classes.menu}>
-        <div onClick={handleMouseClick} className={classes.link}>
+        <div onClick={handleMouseClickGeneral} className={classes.link}>
           <div className={classes.icon}>
             <FaHandshake />
           </div>
@@ -126,6 +137,70 @@ const SideBar = () => {
         </div>
         <div className={classes.link_text}> Matéria Prima </div>
       </NavLink>
+    </div>
+    <div className={classes.menu}>
+    {!isClickedRegister && (
+      <div className={classes.menu}>
+        <div onClick={handleMouseClickRegister} className={classes.link}>
+          <div className={classes.icon}>
+            <FaHandshake />
+          </div>
+          <div className={classes.link_text}>
+            Registos <IoIosArrowDown style={{ height: "1em" }} />
+          </div>
+        </div>
+      </div>
+    )}
+    {isClickedRegister && (
+      <div className={classes.menu}>
+        <div onClick={handleMouseClickRegister} className={classes.link}>
+          <div className={classes.icon}>
+            <FaHandshake />
+          </div>
+          <div className={classes.link_text}>
+            Registos <IoIosArrowUp style={{ height: "1em" }} />
+          </div>
+        </div>
+        <div className={classes.Menu}>
+          <div className={classes.sub_menu}>
+            <NavLink
+              to="/supplier"
+              className={classes.sub_link}
+              activeClassName={classes.active}
+            >
+              Todos os Registos
+            </NavLink>
+          </div>
+          {/* <div className={classes.sub_menu}>
+            <NavLink
+              to="/products"
+              className={classes.sub_link}
+              activeClassName={classes.active}
+            >
+              b
+            </NavLink>
+          </div>
+          <div className={classes.sub_menu}>
+            <NavLink
+              to="/welcome"
+              className={classes.sub_link}
+              activeClassName={classes.active}
+            >
+              c
+            </NavLink>
+          </div>
+          <div className={classes.sub_menu}>
+            <NavLink
+              to="/user"
+              className={classes.sub_link}
+              activeClassName={classes.active}
+            >
+              d
+            </NavLink>
+          </div> */}
+        </div>
+      </div>
+    )}
     </div>
   </div>}
   </>
