@@ -104,6 +104,7 @@ const SuppliersDetails = () => {
           </button>
         </div>
         <div className={classes.search_container}>
+          <div className={classes.cell}></div>
           <div className={classes.cell}>
             <p>Filtros:</p>
           </div>

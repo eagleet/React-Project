@@ -68,4 +68,7 @@ h1{
         font-size: 13px;
         line-height: 16px;
     }
+    .search_container .cell{
+        font-size: 13px;
+    }
 }
