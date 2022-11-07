@@ -26,7 +26,9 @@ const SuppliersDetails = () => {
     try {
       const response = await fetch("/api/suppliers/", {
         method:'GET',
-        headers: {'Authorization': `Bearer ${authCtx.token}`}
+        headers: {
+          'Content-Type':'application/json',
+          'Authorization':`Bearer ${authCtx.token}`}
       });
       if (!response.ok) {
         throw new Error("Something went wrong!");

@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback, useEffect } from "react";
+import { useRef, useState, useCallback, useEffect, useContext } from "react";
 import classes from "./SupplierInfo.module.css";
 import { useHistory } from "react-router-dom";
 import { MdKeyboardArrowLeft } from "react-icons/md";
@@ -15,6 +15,7 @@ const SupplierInfo = ({ match }, props) => {
   const [supplier, setSupplier] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const authCtx = useContext(AuthContext);
   
 
   const onClickHandler = () => {
@@ -28,7 +29,10 @@ const SupplierInfo = ({ match }, props) => {
     try {
       const response = await fetch(`/api/suppliers/${supplierId}/`, {
         method:'GET',
-        headers: {'Authorization': `Bearer ${AuthContext.token}`}
+        headers: { 
+          'Content-Type':'application/json',
+          'Authorization':`Bearer ${authCtx.token}`
+        }
       });
       if (!response.ok) {
         throw new Error("Something went wrong!");
@@ -42,7 +46,7 @@ const SupplierInfo = ({ match }, props) => {
       setError(error.message);
     }
     setIsLoading(false);
-  }, [supplierId]);
+  }, [supplierId, authCtx.token]);
 
   useEffect(() => {
     fetchSupplier();
@@ -98,13 +102,8 @@ const SupplierInfo = ({ match }, props) => {
     );
   }
   if (supplierId === 'new') return;
-  if (error) {
-    content = <p>{error}</p>;
-  }
-
-  if (isLoading) {
-    content = <p>Loading...</p>;
-  }
+  if (error) {content = <p>{error}</p>;}
+  if (isLoading) {content = <p>Loading...</p>;}
 
   function submitHandler(event) {
     event.preventDefault();
@@ -128,7 +127,7 @@ const SupplierInfo = ({ match }, props) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        'Authorization': `Bearer ${AuthContext.token}`
+        'Authorization': `Bearer ${authCtx.token}`
       },
       body: JSON.stringify(supplier),
     });

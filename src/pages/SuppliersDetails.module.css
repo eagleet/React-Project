@@ -48,3 +48,24 @@ h1{
     font-size: 20px;
     font-weight: bold;
 }
+
+@media screen and (max-width: 950px){
+    .columns {
+        display: flex;
+        justify-content: space-around;
+    }
+    .table {
+        border: 2px solid black;
+    }
+    .row { 
+        font-size: 13px;
+    }
+    .btn{
+        padding-top: 6px;
+        padding-bottom: 6px;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-size: 13px;
+        line-height: 16px;
+    }
+}

@@ -1,9 +1,11 @@
-import { useRef } from "react";
+import { useRef, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import classes from "./AddSupplier.module.css";
 import { MdKeyboardArrowLeft } from "react-icons/md";
+import AuthContext from "../store/auth-context";
 
 const AddSupplier = () => {
+  const authCtx = useContext(AuthContext);
 
   const nameRef = useRef("");
   const nifRef = useRef("");
@@ -20,7 +22,8 @@ const AddSupplier = () => {
     const response = await fetch(`/api/suppliers/create/`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        'Authorization':`Bearer ${authCtx.token}`
       },
       body: JSON.stringify(createSupplier),
     });

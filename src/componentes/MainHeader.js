@@ -25,13 +25,6 @@ const MainHeader = () => {
           )}
           {isLoggedIn && (
             <li>
-              <NavLink activeClassName={classes.active} to="/auth">
-                Login
-              </NavLink>
-            </li>
-          )}
-          {isLoggedIn && (
-            <li>
               <NavLink to="/profile">Profile</NavLink>
             </li>
           )}
