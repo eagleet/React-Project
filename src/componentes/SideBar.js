@@ -164,22 +164,22 @@ const SideBar = () => {
         <div className={classes.Menu}>
           <div className={classes.sub_menu}>
             <NavLink
-              to="/supplier"
+              to="/records"
               className={classes.sub_link}
               activeClassName={classes.active}
             >
               Todos os Registos
             </NavLink>
           </div>
-          {/* <div className={classes.sub_menu}>
+           <div className={classes.sub_menu}>
             <NavLink
               to="/products"
               className={classes.sub_link}
               activeClassName={classes.active}
             >
-              b
+              Criar Registo
             </NavLink>
-          </div>
+          </div>{/*
           <div className={classes.sub_menu}>
             <NavLink
               to="/welcome"

@@ -13,6 +13,7 @@ import Home from "./pages/Home";
 import AddSupplier from "./pages/AddSupplier";
 import AuthPage from './pages/AuthPage';
 import AuthContext from "./store/auth-context";
+import GetRecord from "./componentes/GetRecord";
 
 
 function App() {
@@ -35,11 +36,12 @@ function App() {
             <Route path="/" exact component={Home}></Route>
             <Route path="/welcome" component={Welcome}></Route>
             <Route path="/products" exact component={Products}></Route>
+            <Route path="/products/:productId" component={ProductDetail}></Route>
             <Route path="/supplier" exact component={Supplier}></Route>
             <Route path="/supplier/create" component={AddSupplier}></Route>
             <Route path="/supplier/:id" component={SupplierInfo}></Route>
             <Route path="/notifications" component={Notifications}></Route>
-            <Route path="/products/:productId" component={ProductDetail}></Route>
+            <Route path="/records" component={GetRecord}></Route>
             </>}
             {!authCtx.isLoggedIn && <Redirect to='/auth' />}
             <Route path='*'>

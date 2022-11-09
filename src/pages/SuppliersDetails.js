@@ -28,7 +28,8 @@ const SuppliersDetails = () => {
         method:'GET',
         headers: {
           'Content-Type':'application/json',
-          'Authorization':`Bearer ${authCtx.token}`}
+          'Authorization':`Bearer ${authCtx.token}`
+        }
       });
       if (!response.ok) {
         throw new Error("Something went wrong!");
