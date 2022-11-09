@@ -29,7 +29,7 @@ const RecordModal = ({ setIsOpen }, props) => {
     let today = new Date();  // get the date
     let day = ("0" + today.getDate()).slice(-2);  //get day with slice to have double digit day
     let month = ("0" + (today.getMonth() + 1)).slice(-2); //get your zero in front of single month digits so you have 2 digit months
-    let date = month + '-' + day + '-' + today.getFullYear();
+    let date = today.getFullYear() + '-' + month + '-' + day;
     let False = 'False';
 
     const createRecord = {
@@ -39,6 +39,11 @@ const RecordModal = ({ setIsOpen }, props) => {
     };
     createRecordHandler(createRecord);
   };
+
+  function bothFunc(event) {
+    setIsOpen(false);
+    submitHandler(event);
+  }
 
 
   return (
@@ -63,7 +68,7 @@ const RecordModal = ({ setIsOpen }, props) => {
           </label>
         </div>
         <footer className={classes.actions}>
-          <button className={classes.btn} onClick={submitHandler}>
+          <button className={classes.btn} onClick={bothFunc}>
             Adicionar
           </button>
         </footer>

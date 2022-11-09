@@ -9,10 +9,10 @@ const Records = (props) => {
   };
 
   return (
-    <div className={classes.container}>
-      {/* <div className={classes.recordline}>{props.Id}</div> */}
-      <p className={classes.recordline}>{props.Questao}</p>
-      {/* <div className={classes.recordline}>{props.Resposta}</div> */}
+    <div className={classes.row}>
+      <div className={classes.cell}>{props.Data}</div>
+      <div className={classes.cell}>{props.Tipo}</div>
+      <div className={classes.cell}>{String(props.Status)}</div>
       <button className={classes.btn} onClick={(event) => onClickHandler(props.Id, event)}>Seleccionar</button>
     </div>
   );
