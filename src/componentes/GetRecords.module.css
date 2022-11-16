@@ -52,7 +52,12 @@ h1{
 .dropdown {
     border: 1px solid black;
     width: 140px;
-    font-weight: bold
+    font-weight: bold;
+    cursor: pointer;
+}
+.droplisttype {
+    cursor:pointer;
+    font-weight: normal;
 }
 
 @media screen and (max-width: 950px){

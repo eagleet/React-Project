@@ -123,12 +123,16 @@ const GetRecord = () => {
         throw new Error("Something went wrong!");
       }
       const data = await response.json();
+      console.log(data);
       const transformedRecord = data.map((recordData) => {
         return {
-          Questao: recordData.questao,
+          Id: recordData.id,
+          Data: recordData.dataregisto,
+          Tipo: recordData.tiporegisto,
+          Status: recordData.status,
         };
       });
-      setRecord(transformedRecord);
+      setRecords(transformedRecord);
     } catch (error) {
       setError(error.message);
     }
@@ -181,43 +185,53 @@ const GetRecord = () => {
           <div className={classes.search_container}>
             <div className={classes.cell}>
               {!dropdown && (
-                <div className={classes.dropdown} onClick={handleMouseDropdown}>
-                  Periocidade
-                  <IoIosArrowDown style={{ height: "1em" }} />
+                <div style={{display:"flex", justifyContent:"space-around"}}>
+                  <div
+                    className={classes.dropdown}
+                    onClick={handleMouseDropdown}
+                  >
+                    Periocidade
+                    <IoIosArrowDown style={{ height: "1em" }} />
+                  </div>
                 </div>
               )}
               {dropdown && (
-                <div style={{ border: "1px solid black", width: "180px" }}>
-                  <div
-                    onClick={handleMouseDropdown}
-                    style={{ fontWeight: "bold" }}
-                  >
-                    {" "}
-                    Periocidade <IoIosArrowUp style={{ height: "1em" }} />
+                <div style={{display:"flex", justifyContent:"space-around"}}>
+                  <div style={{ border: "1px solid black", width: "240px" }}>
+                    <div
+                      onClick={handleMouseDropdown}
+                      style={{ fontWeight: "bold" }}
+                    >
+                      {" "}
+                      Periocidade <IoIosArrowUp style={{ height: "1em", right: 0}} />
+                    </div>
+                    {tipeOfRecords.map((tipo) => {
+                      return (
+                        <div
+                          className={classes.droplisttype}
+                          key={tipo.Id}
+                          onClick={(event) => fetchByRecordType(tipo.Id, event)}
+                        >
+                          {tipo.Name}
+                        </div>
+                      );
+                    })}
                   </div>
-                  {tipeOfRecords.map((tipo) => {
-                    return (
-                      <div
-                        key={tipo.Id}
-                        onClick={(event) => fetchByRecordType(tipo.Id, event)}
-                      >
-                        {tipo.Name}
-                      </div>
-                    );
-                  })}
                 </div>
               )}
             </div>
             <div className={classes.cell}>
-              <p>Filtros:...</p>
+              <p>Filtros:</p>
             </div>
             <div className={classes.cell}>
-              <input
-                type="text"
-                placeholder="Search..."
-                className="search"
-                onChange={searchItems}
-              />
+              <div className={classes.cell}>
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  className="search"
+                  onChange={searchItems}
+                />
+              </div>
             </div>
           </div>
           <h1>Registo</h1>
